@@ -57,9 +57,16 @@ public class Elements {
 
     private ImageIcon getImage(String filename) {
         
-        // where are we exactly? this works but... meh.
-        // how can we get them from JAR resources?
-        return new ImageIcon("d:/d/GusBC/AtomFigure/AtomFigure/" + filename);
+        // works - but files are needed - how can we read them from the JAR?
+        String path = System.getProperty("user.dir") + "/AtomFigure/" + filename;
+
+        /*
+        InputStream stream = this.getClass().getResourceAsStream("/" + filename);
+        return new ImageIcon(new Image(stream));
+        return new ImageIcon(stream);
+        */
+
+        return new ImageIcon(path);
     }
 
     private void createArrays() {
