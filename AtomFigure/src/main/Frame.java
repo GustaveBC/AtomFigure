@@ -5,17 +5,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class Frame extends JFrame{
+public class Frame extends JFrame {
 	
+	public final Elements elements = new Elements();
 	public static ImageIcon logo = new ImageIcon("atomFigure_logo.png");
 	private IntroPanel introPanel = new IntroPanel(this);
 	private AtomPanel atomPanel;
-	final String[] SYMBOLS = new String[18];
-	final byte[] ATOMIC_NUMBERS = new byte[18];
-	final ImageIcon[] REPRESENTATIONS = new ImageIcon[18];
 	JButton button;
 
-	public Frame() {// frame init
+	public Frame() {
+		
+		// frame init
 		this.setSize(800,600);
 		this.setLocationRelativeTo(null);
 		this.setLayout(null);
@@ -29,16 +29,22 @@ public class Frame extends JFrame{
 		
 	}
 	
-	public void displayPanel2(String txChoice){//tx choice is the string containing the user's choice; it is either a number, either a string.
+	// displays the atomPanel
+	// txChoice: contains the user's choice; it is either a number or a string.
+	public void displayAtomPanel(int index) {
 
+		// remove the introPanel, creates the atomPanel and add it
 		this.getContentPane().remove(introPanel);
-		atomPanel = new AtomPanel(this,txChoice);
+		atomPanel = new AtomPanel(this, index);
 		this.getContentPane().add(atomPanel);
 		this.repaint();
 	}
 	
-	public void displayPanel1(){//displays the introPanel
+	// displays the introPanel
+	public void displayIntroPanel() {
 
+		// remove the atomPanel, add the introPanel back
+		// FIXME: should null the atomPanel? reuse it?
 		this.getContentPane().remove(atomPanel);
 		this.getContentPane().add(introPanel);
 		this.repaint();
