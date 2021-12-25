@@ -69,6 +69,9 @@ public class Elements {
         else if (protocol == "jar") {
             // works - when running the jar, and files must exist on disk and at the right place
             path = System.getProperty("user.dir") + "/img/" + filename;
+
+            // TODO: but there should be a way to fetch the resources from the JAR and ?!
+            // InputStream stream = this.getClass().getResourceAsStream("/" + filename);
         }
         else {
             System.out.println("Unsupported protocol: " + protocol);
@@ -78,13 +81,6 @@ public class Elements {
             System.out.println("File not found: " + path);
         }
         return new ImageIcon(path);
-
-        // TODO: something like this should allow fetching the PNG from the JAR itself
-        /*
-        InputStream stream = this.getClass().getResourceAsStream("/" + filename);
-        return new ImageIcon(new Image(stream));
-        return new ImageIcon(stream);
-        */
     }
 
     private void createArrays() {
@@ -127,7 +123,7 @@ public class Elements {
 		REPRESENTATIONS[9] = getImage("Ne.png");
 		REPRESENTATIONS[10] = getImage("Na.png");
 		REPRESENTATIONS[11] = getImage("Mg.png");
-		REPRESENTATIONS[12] = getImage("src/res/Al.png");
+		REPRESENTATIONS[12] = getImage("sAl.png");
 		REPRESENTATIONS[13] = getImage("Si.png");
 		REPRESENTATIONS[14] = getImage("P.png");
 		REPRESENTATIONS[15] = getImage("S.png");
