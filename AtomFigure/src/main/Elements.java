@@ -1,6 +1,7 @@
 package main;
 
 import javax.swing.ImageIcon;
+import java.io.File;
 
 public class Elements {
 
@@ -56,9 +57,27 @@ public class Elements {
     }
 
     private ImageIcon getImage(String filename) {
-        
-        // works - but files must exist on disk and at the right place
-        String path = System.getProperty("user.dir") + "/img/" + filename;
+
+        // will be either 'file' when running from disk, or 'jar' when running from jar
+        String protocol = Elements.class.getResource("Elements.class").getProtocol();
+
+        String path = filename;
+        if (protocol == "file") {
+            // works - when running in VS code, and files must exist on disk and at the right place
+            path = System.getProperty("user.dir") + "/AtomFigure/img/" + filename;
+        }
+        else if (protocol == "jar") {
+            // works - when running the jar, and files must exist on disk and at the right place
+            path = System.getProperty("user.dir") + "/img/" + filename;
+        }
+        else {
+            System.out.println("Unsupported protocol: " + protocol);
+        }     
+
+        if (!(new File(path).exists())) {
+            System.out.println("File not found: " + path);
+        }
+        return new ImageIcon(path);
 
         // TODO: something like this should allow fetching the PNG from the JAR itself
         /*
@@ -66,8 +85,6 @@ public class Elements {
         return new ImageIcon(new Image(stream));
         return new ImageIcon(stream);
         */
-
-        return new ImageIcon(path);
     }
 
     private void createArrays() {
