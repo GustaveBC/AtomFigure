@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 public class Frame extends JFrame{
 	
-	public static ImageIcon logo = new ImageIcon("atomFigure_logo.png");
+	public static ImageIcon logo = new ImageIcon("atom_figure_logo.png");
 	private IntroPanel introPanel = new IntroPanel(this);
 	private AtomPanel atomPanel;
 	final String[] SYMBOLS = new String[18];
