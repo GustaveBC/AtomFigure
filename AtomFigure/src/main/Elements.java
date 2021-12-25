@@ -57,9 +57,10 @@ public class Elements {
 
     private ImageIcon getImage(String filename) {
         
-        // works - but files are needed - how can we read them from the JAR?
-        String path = System.getProperty("user.dir") + "/AtomFigure/" + filename;
+        // works - but files must exist on disk and at the right place
+        String path = System.getProperty("user.dir") + "/img/" + filename;
 
+        // TODO: something like this should allow fetching the PNG from the JAR itself
         /*
         InputStream stream = this.getClass().getResourceAsStream("/" + filename);
         return new ImageIcon(new Image(stream));
