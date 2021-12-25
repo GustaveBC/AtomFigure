@@ -9,7 +9,7 @@ public class Frame extends JFrame {
 	
 	public final Elements elements = new Elements();
 	public static ImageIcon logo = new ImageIcon("atomFigure_logo.png");
-	private IntroPanel introPanel = new IntroPanel(this);
+	private IntroPanel introPanel;
 	private AtomPanel atomPanel;
 	JButton button;
 
@@ -24,9 +24,12 @@ public class Frame extends JFrame {
 		this.setTitle("AtomeFigure v2.0");
 		this.setIconImage(logo.getImage());
 		this.setResizable(false);
-		this.getContentPane().add(introPanel);
 		this.setVisible(true);
-		
+
+		this.introPanel = new IntroPanel(this.elements);
+		this.introPanel.addInputListener(args -> this.displayAtomPanel(args.getIndex()));
+		this.getContentPane().add(introPanel);
+		this.repaint();
 	}
 	
 	// displays the atomPanel
@@ -35,7 +38,8 @@ public class Frame extends JFrame {
 
 		// remove the introPanel, creates the atomPanel and add it
 		this.getContentPane().remove(introPanel);
-		atomPanel = new AtomPanel(this, index);
+		atomPanel = new AtomPanel(this.elements, index);
+		atomPanel.addReturnListener(args -> this.displayIntroPanel());
 		this.getContentPane().add(atomPanel);
 		this.repaint();
 	}

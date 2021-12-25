@@ -1,5 +1,9 @@
 package main;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -17,20 +21,19 @@ public class AtomPanel extends JPanel implements ActionListener {
 	private final int WIDTH = 800;
 	private final int HEIGHT = 600;
 	private JLabel atomLabel;
-	private Frame frame;
 	private JButton returnButton;
+	private Set<Consumer<EventArgs>> returnListeners = new HashSet<Consumer<EventArgs>>();
 	
-	public AtomPanel(Frame frame, int index) {
+	public AtomPanel(Elements elements, int index) {
 		
 		this.setSize(WIDTH,HEIGHT);
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 		this.setLayout(null);
-		this.frame = frame;
 				
 		atomLabel = new JLabel();
 
-		atomLabel.setIcon(resizeImage(this.frame.elements.REPRESENTATIONS[index]));
+		atomLabel.setIcon(resizeImage(elements.REPRESENTATIONS[index]));
 		atomLabel.setIconTextGap(30);
 		atomLabel.setFont(new Font("Calibri",Font.PLAIN,40));
 		atomLabel.setHorizontalTextPosition(JLabel.CENTER);
@@ -54,11 +57,14 @@ public class AtomPanel extends JPanel implements ActionListener {
 		displayAtomPage();
 	}
 		
+	public void addReturnListener(Consumer<EventArgs> returnListener) {
+		this.returnListeners.add(returnListener);
+	}
+
 	// adds all element to JFrame
 	private void displayAtomPage() {
 		this.add(atomLabel);
-		this.add(returnButton);
-		
+		this.add(returnButton);		
 	}
 
 	private ImageIcon resizeImage(ImageIcon image) {
@@ -70,7 +76,7 @@ public class AtomPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// hit return => back to intro panel
 		if(e.getSource() == returnButton) {
-			frame.displayIntroPanel();
+			this.returnListeners.forEach(listener -> listener.accept(new EventArgs()));
 		}		
 	}
 }

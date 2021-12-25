@@ -1,7 +1,10 @@
 package main;
 
-import java.awt.Color;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -16,20 +19,22 @@ import javax.swing.JTextField;
 
 public class IntroPanel extends JPanel implements ActionListener {
 
+	private Elements elements;
 	private final int WIDTH = 786;
 	private final int HEIGHT = 563;
 	JLabel mainLabel;
-	Frame frame;
 	JLabel rights;
 	JLabel explain;
 	JButton button;
 	JTextField choice;
+	private Set<Consumer<InputEventArgs>> inputListeners = new HashSet<Consumer<InputEventArgs>>();
 	
-	public IntroPanel(Frame frame) {
+	public IntroPanel(Elements elements) {
 		
+		this.elements = elements;
+
 		// panel init
 
-		this.frame = frame;
 		this.setSize(WIDTH,HEIGHT);
 		this.setBackground(Color.WHITE);
 		this.setLayout(null);
@@ -71,6 +76,10 @@ public class IntroPanel extends JPanel implements ActionListener {
 		displayPage();
 	}
 
+	public void addInputListener(Consumer<InputEventArgs> inputListener) {
+		this.inputListeners.add(inputListener);
+	}
+
 	private ImageIcon resizeImage(ImageIcon logo) {
 		Image image = logo.getImage();
 		logo = new ImageIcon(image.getScaledInstance(100, 100, Image.SCALE_SMOOTH));
@@ -91,9 +100,10 @@ public class IntroPanel extends JPanel implements ActionListener {
 
 		if (e.getSource() == button) {
 			String input = choice.getText();
-			int index = this.frame.elements.getIndex(input);
+			int index = this.elements.getIndex(input);
 			if (index >= 0) {
-				this.frame.displayAtomPanel(index);
+				InputEventArgs args = new InputEventArgs(index);
+				this.inputListeners.forEach(listener -> listener.accept(args));
 			}
 			else {
 				choice.setText("Error!");
