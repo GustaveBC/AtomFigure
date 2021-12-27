@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 public class Frame extends JFrame {
 	
 	public final Elements elements = new Elements();
-	public static ImageIcon logo = new ImageIcon("atomFigure_logo.png");
+	public static ImageIcon logo = ImageLoader.getImage("atom_figure_logo.png");
 	private IntroPanel introPanel;
 	private AtomPanel atomPanel;
 	JButton button;

@@ -1,7 +1,6 @@
 package main;
 
 import javax.swing.ImageIcon;
-import java.io.File;
 
 public class Elements {
 
@@ -56,33 +55,6 @@ public class Elements {
         return index;
     }
 
-    private ImageIcon getImage(String filename) {
-
-        // will be either 'file' when running from disk, or 'jar' when running from jar
-        String protocol = Elements.class.getResource("Elements.class").getProtocol();
-
-        String path = filename;
-        if (protocol == "file") {
-            // works - when running in VS code, and files must exist on disk and at the right place
-            path = System.getProperty("user.dir") + "/AtomFigure/img/" + filename;
-        }
-        else if (protocol == "jar") {
-            // works - when running the jar, and files must exist on disk and at the right place
-            path = System.getProperty("user.dir") + "/img/" + filename;
-
-            // TODO: but there should be a way to fetch the resources from the JAR and ?!
-            // InputStream stream = this.getClass().getResourceAsStream("/" + filename);
-        }
-        else {
-            System.out.println("Unsupported protocol: " + protocol);
-        }     
-
-        if (!(new File(path).exists())) {
-            System.out.println("File not found: " + path);
-        }
-        return new ImageIcon(path);
-    }
-
     private void createArrays() {
 		
 		// symbols
@@ -111,24 +83,24 @@ public class Elements {
 		}
 		
 		// representations
-		REPRESENTATIONS[0] = getImage("H.png");
-		REPRESENTATIONS[1] = getImage("He.png");
-		REPRESENTATIONS[2] = getImage("Li.png");
-		REPRESENTATIONS[3] = getImage("Be.png");
-		REPRESENTATIONS[4] = getImage("B.png");
-		REPRESENTATIONS[5] = getImage("C.png");
-		REPRESENTATIONS[6] = getImage("N.png");
-		REPRESENTATIONS[7] = getImage("O.png");
-		REPRESENTATIONS[8] = getImage("F.png");
-		REPRESENTATIONS[9] = getImage("Ne.png");
-		REPRESENTATIONS[10] = getImage("Na.png");
-		REPRESENTATIONS[11] = getImage("Mg.png");
-		REPRESENTATIONS[12] = getImage("sAl.png");
-		REPRESENTATIONS[13] = getImage("Si.png");
-		REPRESENTATIONS[14] = getImage("P.png");
-		REPRESENTATIONS[15] = getImage("S.png");
-		REPRESENTATIONS[16] = getImage("Cl.png");
-		REPRESENTATIONS[17] = getImage("Ar.png");
+		REPRESENTATIONS[0] = ImageLoader.getImage("H.png");
+		REPRESENTATIONS[1] = ImageLoader.getImage("He.png");
+		REPRESENTATIONS[2] = ImageLoader.getImage("Li.png");
+		REPRESENTATIONS[3] = ImageLoader.getImage("Be.png");
+		REPRESENTATIONS[4] = ImageLoader.getImage("B.png");
+		REPRESENTATIONS[5] = ImageLoader.getImage("C.png");
+		REPRESENTATIONS[6] = ImageLoader.getImage("N.png");
+		REPRESENTATIONS[7] = ImageLoader.getImage("O.png");
+		REPRESENTATIONS[8] = ImageLoader.getImage("F.png");
+		REPRESENTATIONS[9] = ImageLoader.getImage("Ne.png");
+		REPRESENTATIONS[10] = ImageLoader.getImage("Na.png");
+		REPRESENTATIONS[11] = ImageLoader.getImage("Mg.png");
+		REPRESENTATIONS[12] = ImageLoader.getImage("Al.png");
+		REPRESENTATIONS[13] = ImageLoader.getImage("Si.png");
+		REPRESENTATIONS[14] = ImageLoader.getImage("P.png");
+		REPRESENTATIONS[15] = ImageLoader.getImage("S.png");
+		REPRESENTATIONS[16] = ImageLoader.getImage("Cl.png");
+		REPRESENTATIONS[17] = ImageLoader.getImage("Ar.png");
 	
 		// names
 		ELEMENT_NAMES[0] = "Hydrogen";

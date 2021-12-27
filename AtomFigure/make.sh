@@ -5,7 +5,7 @@ rm -rf bin >/dev/null 2>&1
 # rebuild bin directory
 mkdir bin
 mkdir bin/main
-mkdir bin/img
+mkdir bin/main/img
 
 # trash existing jar file
 rm AtomFigure.jar >/dev/null 2>&1
@@ -14,11 +14,11 @@ rm AtomFigure.jar >/dev/null 2>&1
 javac -d bin src/main/*.java
 
 # copy images to bin
-cp img/*.png bin/img/
+cp img/*.png bin/main/img/
 
 # create the jar
 cd bin
-jar -c -f ../AtomFigure.jar --main-class=main.MainAtom main/*.class img/*.png
+jar -c -f ../AtomFigure.jar --main-class=main.MainAtom main
 cd ..
 
 # done
