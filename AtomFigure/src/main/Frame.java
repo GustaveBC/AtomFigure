@@ -33,7 +33,6 @@ public class Frame extends JFrame {
 	}
 	
 	// displays the atomPanel
-	// txChoice: contains the user's choice; it is either a number or a string.
 	public void displayAtomPanel(int index) {
 
 		// remove the introPanel, creates the atomPanel and add it
